@@ -82,13 +82,13 @@ namespace BankApp
 
         static void Main(string[] args)
         {
-            
+            Console.WriteLine("Welcome");
             List<Account> customers = new List<Account>();
             bool Notfinshied = true;
             while (Notfinshied == true)
             {
 
-                Console.WriteLine("Welcome");
+                
                 Console.WriteLine("Please press 1 to create new account");
                 Console.WriteLine("Please press 2 to check balance on existing account");
                 Console.WriteLine("Please press 3 to withdraw from existing account");
@@ -111,26 +111,73 @@ namespace BankApp
 
                         break;
                     case 2:
-                        Console.WriteLine("Enter account number to checkbalance");
+                        bool accCorrect = true;
+
+                        while (accCorrect)
+                        {
+                            Console.WriteLine("Enter account number to checkbalance");
                         int accountno = Convert.ToInt32(Console.ReadLine());
-                        var thiscustomer = customers.SingleOrDefault(item => item.AccountNo == accountno);
-                        thiscustomer.checkBalance(accountno);
+                        
+                            var thiscustomer = customers.Where(i => i.AccountNo == accountno).FirstOrDefault();
+                            if(thiscustomer != null)
+                            {
+                                thiscustomer.checkBalance(accountno);
+                                accCorrect = false;
+                                   }
+                            else
+                            {
+                                Console.WriteLine("incorrect please re enter account no");
+                                accountno = Convert.ToInt32(Console.ReadLine());
+                            }
+                        }
+                        
+                        
+
                         break;
                     case 3:
-                        Console.WriteLine("Enter account number");
-                        int customeracc = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Enter amount you want to withdraw");
-                        int withraw = Convert.ToInt32(Console.ReadLine());
-                        var thisCustomer = customers.SingleOrDefault(item => item.AccountNo == customeracc);
-                        thisCustomer.withrawal(customeracc, withraw);
+                        bool accCorrectt = true;
+                        while (accCorrectt)
+                        {
+                            Console.WriteLine("Enter account number");
+                            int customeracc = Convert.ToInt32(Console.ReadLine());
+                            var thisCustomer = customers.SingleOrDefault(item => item.AccountNo == customeracc);
+                            if(thisCustomer != null)
+                            {
+                                Console.WriteLine("Enter amount you want to withdraw");
+                                int withraw = Convert.ToInt32(Console.ReadLine());
+                                thisCustomer.withrawal(customeracc, withraw);
+                                accCorrectt = false;
+                            }
+                            else
+                            {
+                                Console.WriteLine("incorrect please re enter account no");
+                                customeracc = Convert.ToInt32(Console.ReadLine());
+                            }
+                        }
+                        
+                                             
                         break;
                     case 4:
-                        Console.WriteLine("Enter account number");
-                        int customerAcc = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Enter amount you want to deposit");
-                        int deposit = Convert.ToInt32(Console.ReadLine());
-                        var ThisCustomer = customers.SingleOrDefault(item => item.AccountNo == customerAcc);
-                        ThisCustomer.makedeposit(customerAcc, deposit);
+                        bool accCorrecttt = true;
+                        while (accCorrecttt)
+                        {
+                            Console.WriteLine("Enter account number");
+                            int customeracc = Convert.ToInt32(Console.ReadLine());
+                            var thisCustomer = customers.SingleOrDefault(item => item.AccountNo == customeracc);
+                            if (thisCustomer != null)
+                            {
+                                Console.WriteLine("Enter amount you want to deposit");
+                                int deposit = Convert.ToInt32(Console.ReadLine());
+                                thisCustomer.makedeposit(customeracc, deposit);
+                                accCorrecttt = false;
+                            }
+                            else
+                            {
+                                Console.WriteLine("incorrect please re enter account no");
+                                customeracc = Convert.ToInt32(Console.ReadLine());
+                            }
+                        }
+
                         break;
                     case 5:
                         Notfinshied = false;
