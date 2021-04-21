@@ -34,7 +34,7 @@ namespace BankApp
         public void initialdeposit(int deposit)
         {
             this.balance += deposit;
-            Console.WriteLine($"Thank You, your account Number has been generated {this.AccountNo} your new balance is {balance}");
+            Console.WriteLine($"Thank You, your account Number has been generated {this.AccountNo} your new balance is ${balance}");
 
         }
 
@@ -43,7 +43,7 @@ namespace BankApp
             if (Youraccount == this.AccountNo) {
 
                 this.balance += deposit;
-                Console.WriteLine($"Thank You, your new balance is {balance}");
+                Console.WriteLine($"Thank You, your new balance is ${balance}");
             }
             else
             {
@@ -63,7 +63,7 @@ namespace BankApp
                 }
                 else
                 {
-                    Console.WriteLine("insufficient funds");
+                    Console.WriteLine($"insufficient funds, you are trying to withdraw ${withdrawamount} and you only have ${this.balance} in your Account");
                 }
 
             }
@@ -101,13 +101,15 @@ namespace BankApp
                         Console.WriteLine("Please enter your name");
                         string name = Console.ReadLine();
                         Console.WriteLine($"Hello {name} ");
+                        Console.WriteLine();
                         customers.Add(new Account(name,0));
-                                                
+                                      
                         Console.WriteLine("Please make initial deposit");
                         int inideposit = Convert.ToInt32(Console.ReadLine());
                         var thiscustomeR = customers.Where(i => i.AccountName == name).FirstOrDefault();
                         //list.Where(i => i.Property == value).FirstOrDefault();
                         thiscustomeR.initialdeposit(inideposit);
+                        Console.WriteLine();
 
                         break;
                     case 2:
@@ -122,12 +124,14 @@ namespace BankApp
                             if(thiscustomer != null)
                             {
                                 thiscustomer.checkBalance(accountno);
+                                Console.WriteLine();
                                 accCorrect = false;
                                    }
                             else
                             {
                                 Console.WriteLine("incorrect please re enter account no");
-                                accountno = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine();
+
                             }
                         }
                         
@@ -146,12 +150,14 @@ namespace BankApp
                                 Console.WriteLine("Enter amount you want to withdraw");
                                 int withraw = Convert.ToInt32(Console.ReadLine());
                                 thisCustomer.withrawal(customeracc, withraw);
+                                Console.WriteLine();
                                 accCorrectt = false;
                             }
                             else
                             {
                                 Console.WriteLine("incorrect please re enter account no");
-                                customeracc = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine();
+
                             }
                         }
                         
@@ -169,12 +175,14 @@ namespace BankApp
                                 Console.WriteLine("Enter amount you want to deposit");
                                 int deposit = Convert.ToInt32(Console.ReadLine());
                                 thisCustomer.makedeposit(customeracc, deposit);
+                                Console.WriteLine();
                                 accCorrecttt = false;
                             }
                             else
                             {
                                 Console.WriteLine("incorrect please re enter account no");
-                                customeracc = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine();
+
                             }
                         }
 
