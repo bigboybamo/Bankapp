@@ -39,7 +39,7 @@ namespace BankApp
         public void initialdeposit(int deposit)
         {
             this.balance += deposit;
-            Console.WriteLine($"Thank You, your account Number has been generated {this.AccountNo} your new balance is ${balance}");
+            Console.WriteLine($"Thank You, your account Number has been generated. Your Account number is {this.AccountNo} & your new balance is ${balance}");
 
         }
 
@@ -68,8 +68,8 @@ namespace BankApp
             {
                 if (withdrawamount <= this.balance)
                 {
-                    Console.WriteLine("Please that your cash");
-                    Console.WriteLine($"YOur balance is {this.balance - withdrawamount}");
+                    Console.WriteLine("Please take your cash");
+                    Console.WriteLine($"Your balance is {this.balance - withdrawamount}");
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace BankApp
         {
 
             this.pin = pinn;
-            Console.WriteLine("Your pin has been change successfully");
+            Console.WriteLine("Your pin has been changed successfully");
 
             /*if (AccountNo == this.AccountNo && pinn == this.pin)
             {
@@ -160,7 +160,7 @@ namespace BankApp
 
                         while (accCorrect)
                         {
-                            Console.WriteLine("Enter account number to check balance");
+                            Console.WriteLine("Enter Your account number to check balance");
                             int accountno = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Please enter your four digit pin");
                             int thisPin = Convert.ToInt32(Console.ReadLine());
@@ -271,6 +271,7 @@ namespace BankApp
                                 if (newpin == newpin2)
                                 {
                                     thisCustomer.changepin(customeracc, newpin);
+                                    Console.WriteLine();
                                     accCorrecttt = false;
                                     break;
                                 }
