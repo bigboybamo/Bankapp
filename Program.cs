@@ -9,26 +9,31 @@ namespace BankApp
         public string AccountName;
         public float balance;
         public int AccountNo;
+        public int pin;
 
-        public Account(string _accountName, float deposit)
+        public Account(string _accountName, float deposit, int _pin)
         {
             AccountName = _accountName;
             balance = deposit;
             Random rnd = new Random();
             AccountNo = rnd.Next(10000,19999);
-           
+            pin = _pin;
 
         }
-        public  void checkBalance(int accountNo)
+        public  void checkBalance(int accountNo, int pin)
         {
-            if (accountNo == this.AccountNo)
+            if (accountNo == this.AccountNo && pin == this.pin)
             {
                 Console.WriteLine( $"your balance is {this.balance}");
             }
-            else
+            else if(accountNo != this.AccountNo)
             {
                 Console.WriteLine("Invalid account Number");
             }
+            else
+            {
+                Console.WriteLine("Invalid pin");
+           }
         }
 
         public void initialdeposit(int deposit)
@@ -38,23 +43,27 @@ namespace BankApp
 
         }
 
-        public void makedeposit(int Youraccount,int deposit)
+        public void makedeposit(int Youraccount,int deposit, int pin)
         {
-            if (Youraccount == this.AccountNo) {
+            if (Youraccount == this.AccountNo && pin == this.pin) {
 
                 this.balance += deposit;
                 Console.WriteLine($"Thank You, your new balance is ${balance}");
             }
-            else
+            else if(Youraccount != this.AccountNo)
             {
                 Console.WriteLine("Please reconfirm account number");
+            }
+            else
+            {
+                Console.WriteLine("Please reconfirm account pin");
             }
 
         }
 
-        public void withrawal(int yourAccount, int withdrawamount)
+        public void withrawal(int yourAccount, int withdrawamount, int pin)
         {
-            if (yourAccount == this.AccountNo)
+            if (yourAccount == this.AccountNo && pin == this.pin)
             {
                 if(withdrawamount <= this.balance)
                 {
@@ -66,6 +75,10 @@ namespace BankApp
                     Console.WriteLine($"insufficient funds, you are trying to withdraw ${withdrawamount} and you only have ${this.balance} in your Account");
                 }
 
+            }
+            else if(yourAccount != this.AccountNo)
+            {
+                Console.WriteLine("PLease reconfirm account number");
             }
             else
             {
@@ -101,8 +114,10 @@ namespace BankApp
                         Console.WriteLine("Please enter your name");
                         string name = Console.ReadLine();
                         Console.WriteLine($"Hello {name} ");
+                        Console.WriteLine("Please select a four digit pin");
+                        int thispin = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine();
-                        customers.Add(new Account(name,0));
+                        customers.Add(new Account(name,0,thispin));
                                       
                         Console.WriteLine("Please make initial deposit");
                         int inideposit = Convert.ToInt32(Console.ReadLine());
@@ -117,21 +132,27 @@ namespace BankApp
 
                         while (accCorrect)
                         {
-                            Console.WriteLine("Enter account number to checkbalance");
+                            Console.WriteLine("Enter account number to check balance");
                         int accountno = Convert.ToInt32(Console.ReadLine());
-                        
+                            Console.WriteLine("Please enter your four digit pin");
+                            int thisPin = Convert.ToInt32(Console.ReadLine());
                             var thiscustomer = customers.Where(i => i.AccountNo == accountno).FirstOrDefault();
-                            if(thiscustomer != null)
+                            if(thiscustomer != null && thisPin == thiscustomer.pin)
                             {
-                                thiscustomer.checkBalance(accountno);
+                                thiscustomer.checkBalance(accountno,thisPin);
                                 Console.WriteLine();
                                 accCorrect = false;
                                    }
-                            else
+                            else if(thiscustomer != null && thisPin != thiscustomer.pin)
                             {
-                                Console.WriteLine("incorrect please re enter account no");
+                                Console.WriteLine("incorrect pin");
                                 Console.WriteLine();
 
+                            }
+                            else
+                            {
+                                Console.WriteLine("incorrect Account number");
+                                Console.WriteLine();
                             }
                         }
                         
@@ -144,20 +165,27 @@ namespace BankApp
                         {
                             Console.WriteLine("Enter account number");
                             int customeracc = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Please enter your four digit pin");
+                            int ThisPin = Convert.ToInt32(Console.ReadLine());
                             var thisCustomer = customers.SingleOrDefault(item => item.AccountNo == customeracc);
-                            if(thisCustomer != null)
+                            if(thisCustomer != null && ThisPin == thisCustomer.pin)
                             {
                                 Console.WriteLine("Enter amount you want to withdraw");
                                 int withraw = Convert.ToInt32(Console.ReadLine());
-                                thisCustomer.withrawal(customeracc, withraw);
+                                thisCustomer.withrawal(customeracc, withraw,ThisPin);
                                 Console.WriteLine();
                                 accCorrectt = false;
                             }
-                            else
+                            else if (thisCustomer != null && ThisPin != thisCustomer.pin)
                             {
-                                Console.WriteLine("incorrect please re enter account no");
+                                Console.WriteLine("incorrect pin");
                                 Console.WriteLine();
 
+                            }
+                            else
+                            {
+                                Console.WriteLine("incorrect Account number");
+                                Console.WriteLine();
                             }
                         }
                         
@@ -169,20 +197,27 @@ namespace BankApp
                         {
                             Console.WriteLine("Enter account number");
                             int customeracc = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Please enter your four digit pin");
+                            int thisPinn = Convert.ToInt32(Console.ReadLine());
                             var thisCustomer = customers.SingleOrDefault(item => item.AccountNo == customeracc);
-                            if (thisCustomer != null)
+                            if (thisCustomer != null && thisPinn == thisCustomer.pin)
                             {
                                 Console.WriteLine("Enter amount you want to deposit");
                                 int deposit = Convert.ToInt32(Console.ReadLine());
-                                thisCustomer.makedeposit(customeracc, deposit);
+                                thisCustomer.makedeposit(customeracc, deposit,thisPinn);
                                 Console.WriteLine();
                                 accCorrecttt = false;
                             }
-                            else
+                            else if (thisCustomer != null && thisPinn != thisCustomer.pin)
                             {
-                                Console.WriteLine("incorrect please re enter account no");
+                                Console.WriteLine("incorrect pin");
                                 Console.WriteLine();
 
+                            }
+                            else
+                            {
+                                Console.WriteLine("incorrect Account number");
+                                Console.WriteLine();
                             }
                         }
 
