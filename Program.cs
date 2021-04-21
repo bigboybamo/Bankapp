@@ -24,7 +24,7 @@ namespace BankApp
         {
             if (accountNo == this.AccountNo && pin == this.pin)
             {
-                Console.WriteLine($"your balance is {this.balance}");
+                Console.WriteLine($"Your balance is {this.balance}");
             }
             else if (accountNo != this.AccountNo)
             {
@@ -88,6 +88,29 @@ namespace BankApp
 
         }
 
+        public void changepin(int AccountNo, int pinn)
+        {
+
+            this.pin = pinn;
+            Console.WriteLine("Your pin has been change successfully");
+
+            /*if (AccountNo == this.AccountNo && pinn == this.pin)
+            {
+                this.pin = pinn;
+                Console.WriteLine("Your pin has been change successfully");
+            }
+            else if (AccountNo != this.AccountNo)
+            {
+                Console.WriteLine("Invalid account number");
+            }
+            else
+            {
+                Console.WriteLine("Invalid account pin");
+            }
+            */
+        }
+
+
 
 
     }
@@ -108,7 +131,8 @@ namespace BankApp
                 Console.WriteLine("Please press 2 to check balance on existing account");
                 Console.WriteLine("Please press 3 to withdraw from existing account");
                 Console.WriteLine("Please press 4 to deposit into account");
-                Console.WriteLine("Press 5 if you are done with your transactions");
+                Console.WriteLine("Please press 5 to change your pin");
+                Console.WriteLine("Press 6 if you are done with your transactions");
                 int selection = Convert.ToInt32(Console.ReadLine());
                 switch (selection)
                 {
@@ -228,7 +252,46 @@ namespace BankApp
                         }
 
                         break;
+                    //To change pin
                     case 5:
+                        bool accCorrec = true;
+                        while (accCorrec)
+                        {
+                            Console.WriteLine("Enter account number");
+                            int customeracc = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Please enter your four digit pin");
+                            int thisPinn = Convert.ToInt32(Console.ReadLine());
+                            var thisCustomer = customers.SingleOrDefault(item => item.AccountNo == customeracc);
+                            if (thisCustomer != null && thisPinn == thisCustomer.pin)
+                            {
+                                Console.WriteLine("Please enter your new pin");
+                                int newpin = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("Please confirm new pin by entering it again");
+                                int newpin2 = Convert.ToInt32(Console.ReadLine());
+                                if (newpin == newpin2)
+                                {
+                                    thisCustomer.changepin(customeracc, newpin);
+                                    accCorrecttt = false;
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("The two pins don't match");
+                                    Console.WriteLine();
+                                }
+
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Your account number was not found");
+                                Console.WriteLine();
+                            }
+
+                        }
+                        break;
+
+                    case 6:
                         Notfinshied = false;
                         break;
 
